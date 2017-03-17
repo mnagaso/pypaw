@@ -33,7 +33,11 @@ consoles = [
     'pypaw-convert_to_asdf=pypaw.bins.convert_to_asdf:main',
     'pypaw-convert_to_sac=pypaw.bins.convert_to_sac:main',
     'pypaw-generate_stations_asdf=pypaw.bins.generate_stations_asdf:main',
-    'pypaw-generate_adjoint_stations=pypaw.bins.generate_adjoint_stations:main'
+    'pypaw-generate_adjoint_stations=pypaw.bins.generate_adjoint_stations:main',  # NOQA
+    'pypaw-dd_find_pairs=pypaw.bins.dd_find_pairs:main',
+    'pypaw-dd_filter_paired_windows=pypaw.bins.dd_filter_paired_windows:main',
+    'pypaw-dd_adjoint_asdf=pypaw.bins.dd_adjoint_asdf:main',
+    'pypaw-dd_merge_adjoints=pypaw.bins.dd_merge_adjoints:main'
 ]
 
 
