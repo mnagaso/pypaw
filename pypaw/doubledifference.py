@@ -24,9 +24,13 @@ from pyadjoint.config import (ConfigDoubleDifferenceCrossCorrelation,
 from pytomo3d.adjoint.process_adjsrc import process_adjoint
 from pytomo3d.adjoint.utils import reshape_adj
 from pytomo3d.doubledifference.adjoint import (add_adjoint_sources,
+                                               multiply_adjoint_source,
                                                calculate_adjoint_pair,
                                                calculate_measure_pair)
-from pytomo3d.doubledifference.pairing import get_stanames_of_pair
+
+from pytomo3d.doubledifference.pairing import (deconstruct_winname,
+                                               get_stanames_of_pair)
+
 from pytomo3d.doubledifference.windows import component_based_windows_data
 import json
 
@@ -211,6 +215,7 @@ def calc_adj_sources(path, params):
 
     adj_srcs = {}
     inventories = {}
+    zero_misfits = {}
     for comp, comp_pairs in pairs.iteritems():
         if rank != 0:
             splitted_pairs = list(split(comp_pairs, size))
@@ -237,22 +242,31 @@ def calc_adj_sources(path, params):
         results = run_with_mpi(calc_pair,
                                list(range(len(comp_pairs))))
 
+        zero_misfits[comp] = []
         if results is not None:  # This means rank=0
+            comp_meas = defaultdict(lambda: [])
             for result in results:
                 i, j = result
                 adj_i, adj_j = results[result]
+                if adj_i.misfit == 0:
+                    zero_misfits[comp].append([i, j])
+                comp_meas[i].append(adj_i)
+                comp_meas[j].append(adj_j)
+            del results
 
-                if comp_adj_srcs[i] is None:
-                    comp_adj_srcs[i] = adj_i
-                else:
-                    comp_adj_srcs[i] = add_adjoint_sources(comp_adj_srcs[i],
-                                                           adj_i)
+            for meas, adjs in comp_meas.iteritems():
+                sta, _, _ = deconstruct_winname(meas)
+                n_valid_pairs = len([True
+                                     for a in adjs
+                                     if a.misfit > 0]) + 1
+                weight = 1.0/n_valid_pairs
+                for adj in adjs:
+                    if comp_adj_srcs[sta] is None:
+                        comp_adj_srcs[sta] = multiply_adjoint_source(weight, adj)
+                    else:
+                        comp_adj_srcs[sta] = add_adjoint_sources(comp_adj_srcs[sta],
+                                                                 multiply_adjoint_source(weight, adj))
 
-                if comp_adj_srcs[j] is None:
-                    comp_adj_srcs[j] = adj_j
-                else:
-                    comp_adj_srcs[j] = add_adjoint_sources(comp_adj_srcs[j],
-                                                           adj_j)
             # Update adjoint sources
             for staname, adj_src in comp_adj_srcs.iteritems():
                 if staname in adj_srcs:
@@ -281,11 +295,14 @@ def calc_adj_sources(path, params):
             # print(station, inventories[station])
             asdf_srcs = reshape_adj(proc_adjs, inventories[station])
             for asdf_src in asdf_srcs:
-                path = asdf_src["path"].split("/")[1]
+                adj_path = asdf_src["path"].split("/")[1]
                 adj_ds.add_auxiliary_data(data=asdf_src["object"],
                                           data_type="AdjointSources",
-                                          path=path,
+                                          path=adj_path,
                                           parameters=asdf_src["parameters"])
+
+        with open(path["output_file"].replace(".h5" , ".rejections.json"), "w") as f:
+            json.dump(zero_misfits, f, indent=2, sort_keys=True)
 
 
 def calc_measures(path, params):
@@ -318,6 +335,7 @@ def calc_measures(path, params):
     synt_tag = path["synt_tag"]
 
     measures = {}
+    zero_misfits = {}
     for comp, comp_pairs in pairs.iteritems():
         splitted_pairs = list(split(comp_pairs, size))
         comp_rank_pairs = splitted_pairs[rank]
@@ -340,6 +358,7 @@ def calc_measures(path, params):
 
         results = run_with_mpi(calc_pair,
                                list(range(len(comp_pairs))))
+        zero_misfits[comp] = []
 
         if results is not None:  # This means rank=0
             for result in results:
@@ -349,6 +368,9 @@ def calc_measures(path, params):
                 meas_i["paired_with"] = j
                 meas_j["paired_with"] = i
 
+                if meas_i["misfit"] == 0.0:
+                    zero_misfits[comp].append([i,j])
+
                 if comp_measures[i] is None:
                     comp_measures[i] = []
                 comp_measures[i].append(meas_i)
@@ -357,8 +379,18 @@ def calc_measures(path, params):
                     comp_measures[j] = []
                 comp_measures[j].append(meas_j)
 
+            # Calculate and apply the weights
+            n_valid_pairs = len([True
+                                 for m in comp_measures[win]
+                                 if m["misfit"] > 0]) + 1
+            for win in comp_measures:
+                for m in comp_measures[win]:
+                    m["misfit"] /= n_valid_pairs
+
             measures[comp] = dict(comp_measures)
 
     if rank == 0:
         with open(path["output_file"], "w") as f:
             json.dump(measures, f, indent=2, sort_keys=True)
+        with open(path["output_file"].replace(".json" , ".rejections.json"), "w") as f:
+            json.dump(zero_misfits, f, indent=2, sort_keys=True)
