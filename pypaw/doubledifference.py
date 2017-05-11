@@ -212,7 +212,13 @@ def calc_adj_sources(path, params):
     adj_srcs = {}
     inventories = {}
     for comp, comp_pairs in pairs.iteritems():
-        comp_stations = get_stations(comp_pairs)
+        if rank != 0:
+            splitted_pairs = list(split(comp_pairs, size))
+            comp_rank_pairs = splitted_pairs[rank]
+        else:
+            comp_rank_pairs = comp_pairs
+
+        comp_stations = get_stations(comp_rank_pairs)
         obsd, comp_invs = get_traces(comp_stations, obsd_ds, obsd_tag, comp)
         synt, _ = get_traces(comp_stations, synt_ds, synt_tag, comp)
         # print(">", comp_invs)
@@ -313,9 +319,14 @@ def calc_measures(path, params):
 
     measures = {}
     for comp, comp_pairs in pairs.iteritems():
-        comp_stations = get_stations(comp_pairs)
-        obsd, comp_invs = get_traces(comp_stations, obsd_ds, obsd_tag, comp)
-        synt, _ = get_traces(comp_stations, synt_ds, synt_tag, comp)
+        splitted_pairs = list(split(comp_pairs, size))
+        comp_rank_pairs = splitted_pairs[rank]
+
+        comp_stations = get_stations(comp_rank_pairs)
+        obsd, comp_invs = get_traces(comp_stations,
+                                     obsd_ds, obsd_tag, comp)
+        synt, _ = get_traces(comp_stations,
+                             synt_ds, synt_tag, comp)
 
         comp_measures = defaultdict(lambda: None)
 
