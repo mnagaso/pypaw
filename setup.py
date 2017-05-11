@@ -38,7 +38,8 @@ consoles = [
     'pypaw-dd_filter_paired_windows=pypaw.bins.dd_filter_paired_windows:main',
     'pypaw-dd_adjoint_asdf=pypaw.bins.dd_adjoint_asdf:main',
     'pypaw-dd_merge_adjoints=pypaw.bins.dd_merge_adjoints:main',
-    'pypaw-dd_measure_adjoint_asdf=pypaw.bins.dd_measure_adjoint_asdf:main'
+    'pypaw-dd_measure_adjoint_asdf=pypaw.bins.dd_measure_adjoint_asdf:main',
+    'pypaw-dd_filter_rejected_pairs=pypaw.bins.dd_filter_rejected_pairs:main'
 ]
 
 
