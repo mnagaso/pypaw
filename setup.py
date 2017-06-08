@@ -40,6 +40,7 @@ consoles = [
     'pypaw-dd_merge_adjoints=pypaw.bins.dd_merge_adjoints:main',
     'pypaw-dd_measure_adjoint_asdf=pypaw.bins.dd_measure_adjoint_asdf:main',
     'pypaw-dd_filter_rejected_pairs=pypaw.bins.dd_filter_rejected_pairs:main'
+    'pypaw-plot_event_windows=pypaw.bins.plot_event_windows:main'
 ]
 
 
@@ -74,8 +75,8 @@ setup(
         "seismology", "tomography", "adjoint", "signal", "inversion", "window"
     ],
     install_requires=[
-        "numpy", "obspy>=1.0.0", "flake8", "pytest", "nose", "future>=0.14.1",
-        "pytomo3d", "pyasdf"
+        "numpy", "obspy>=1.0.0", "flake8>=3.0", "pytest", "nose",
+        "future>=0.14.1", "pytomo3d", "pyasdf", "pyyaml", "spaceweight"
     ],
     entry_points={
         'console_scripts': consoles
