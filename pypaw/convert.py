@@ -42,7 +42,7 @@ def add_waveform_to_asdf(ds, waveform_filelist, tag, event=None,
                 if sta_tag not in list(sta_dict.keys()):
                     try:
                         _sac = tr.stats.sac
-                    except:
+                    except AttributeError:
                         raise ValueError("The original data format should be"
                                          "sac format to extract station"
                                          "information")
@@ -200,7 +200,7 @@ def convert_from_asdf(asdf_fn, outputdir, tag=None, filetype="sac",
                 continue
             try:
                 stream, inv = ds.get_data_for_tag(station_name2, _tag)
-            except:
+            except Exception:
                 print("Error for station:", station_name2)
             if filetype == "SAC":
                 write_stream_to_sac(stream, outputdir, _tag)
@@ -213,7 +213,7 @@ def convert_from_asdf(asdf_fn, outputdir, tag=None, filetype="sac",
                                         % (station_name, _tag))
                 try:
                     inv.write(filename, format="STATIONXML")
-                except:
+                except Exception:
                     print("Error creating STATIONXML: %f" % filename)
 
     del ds

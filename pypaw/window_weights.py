@@ -29,8 +29,6 @@ from collections import defaultdict
 from copy import deepcopy
 import numpy as np
 import logging
-import matplotlib.pyplot as plt
-plt.switch_backend('agg')  # NOQA
 
 from pyasdf import ASDFDataSet
 from pytomo3d.adjoint.sum_adjoint import check_events_consistent
@@ -39,6 +37,9 @@ from pytomo3d.window.window_weights import \
     calculate_category_weights_interface,\
     combine_receiver_and_category_weights
 from pypaw.bins.utils import load_json, dump_json, load_yaml
+
+import matplotlib.pyplot as plt
+plt.switch_backend('agg')  # NOQA
 
 
 # Setup the logger.
@@ -190,7 +191,7 @@ def validate_overall_weights(weights_array, nwins_array):
     nwins_total = np.sum(nwins_array)
     if not np.isclose(wsum, nwins_total):
         raise ValueError("The sum of all weights(%f) does not add "
-                         "up to total number of windows"
+                         "up to total number of windows (%f)"
                          % (wsum, nwins_total))
 
 

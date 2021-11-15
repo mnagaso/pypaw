@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 import matplotlib as mpl
 mpl.use('Agg')  # NOQA
-import argparse
-from pypaw import WindowASDF
+
+import argparse                 # NOQA
+from pypaw import WindowASDF    # NOQA
 
 
 def main():

@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 import matplotlib as mpl
 mpl.use('Agg')  # NOQA
-import argparse
-from pypaw import AdjointASDF
+
+import argparse                 # NOQA
+from pypaw import AdjointASDF   # NOQA
 
 
 def main():

@@ -9,9 +9,6 @@
     (http://www.gnu.org/licenses/lgpl-3.0.en.html)
 """
 
-
-
-
 import argparse
 
 from .utils import load_json, dump_json
@@ -50,6 +47,7 @@ def main():
 
     dump_json(filtered_pairs,
               filtered_pairs_filename)
+
 
 if __name__ == "__main__":
     main()

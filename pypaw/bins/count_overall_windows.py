@@ -108,8 +108,7 @@ def stats_all_window_file(path, _verbose):
     for idxe, e in enumerate(eventlist):
         period_bands = list(path["input"][e].keys())
         period_bands.sort()
-        print("-" * 8 + "[%d/%d]%s" % (idxe, nevents, e) +
-              "-" * 8)
+        print("-" * 8 + "[%d/%d]%s" % (idxe, nevents, e) + "-" * 8)
         detailed_event_windows[e] = {}
         event_total = 0
         for p in period_bands:

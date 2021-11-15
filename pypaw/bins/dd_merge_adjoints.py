@@ -8,9 +8,6 @@
    GPL
 """
 
-
-
-
 import argparse
 import pyasdf
 from pytomo3d.doubledifference.adjoint import (add_adjoint_sources,
@@ -145,6 +142,7 @@ def main():
 
     paths = load_json(args.path_file)
     merge_adjoints(paths)
+
 
 if __name__ == "__main__":
     main()

@@ -9,9 +9,6 @@
     (http://www.gnu.org/licenses/lgpl-3.0.en.html)
 """
 
-
-
-
 import argparse
 from pytomo3d.doubledifference.windows import (component_based_windows_data,
                                                filter_paired_windows,
@@ -40,6 +37,7 @@ def main():
               paired_filename)
     dump_json(convert_to_sta_based_windows(single_windows),
               single_filename)
+
 
 if __name__ == "__main__":
     main()

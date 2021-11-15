@@ -22,9 +22,10 @@ different events.
 import argparse
 import matplotlib
 matplotlib.use('Agg')  # NOQA
-from obspy import read_events
-from pytomo3d.source.source_weights import calculate_source_weights
-from .utils import load_json, load_yaml, reset_matplotlib
+
+from obspy import read_events   # NOQA
+from pytomo3d.source.source_weights import calculate_source_weights  # NOQA
+from .utils import load_json, load_yaml, reset_matplotlib  # NOQA
 
 
 def src_weights(path, param, _verbose=False):

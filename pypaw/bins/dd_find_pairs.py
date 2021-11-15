@@ -11,9 +11,6 @@ It takes paths and param file as arguments.
     (http://www.gnu.org/licenses/lgpl-3.0.en.html)
 """
 
-
-
-
 import argparse
 from pytomo3d.doubledifference import pairing
 from pytomo3d.doubledifference.windows import component_based_windows_data
@@ -63,6 +60,7 @@ def main():
         phases=params["phase"]["phases_to_match"])
 
     dump_json(pairs, paths["output"])
+
 
 if __name__ == "__main__":
     main()

@@ -38,12 +38,12 @@ def measure_adjoint_wrapper(
               (synt_tag, synt_station_group._station_name))
         return
     if not hasattr(obsd_station_group, "StationXML"):
-        print("Missing tag 'STATIONXML' from obsd_station_group %s. Skipped" %
+        print("Missing tag (%s) 'STATIONXML' from obsd_station_group %s. Skipped" %  # NOQA
               (obsd_tag, obsd_station_group._station_name))
 
     try:
         window_sta = windows[obsd_station_group._station_name]
-    except:
+    except KeyError:
         return
 
     observed = getattr(obsd_station_group, obsd_tag)

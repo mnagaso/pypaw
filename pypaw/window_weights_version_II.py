@@ -30,8 +30,6 @@ import time
 import numpy as np
 import logging
 from pprint import pprint
-import matplotlib.pyplot as plt
-plt.switch_backend('agg')  # NOQA
 
 import obspy
 from pytomo3d.source.source_weights import assign_source_to_points, \
@@ -40,6 +38,8 @@ from pytomo3d.window.window_weights import \
     calculate_receiver_weights_interface, calculate_receiver_window_counts
 from pypaw.bins.utils import load_json, dump_json, load_yaml
 
+import matplotlib.pyplot as plt
+plt.switch_backend('agg')  # NOQA
 
 # Setup the logger.
 logger = logging.getLogger("window-weight")
@@ -106,7 +106,7 @@ def validate_path(path):
 def _missing_keys(keys, dictv):
     for k in keys:
         if k not in dictv:
-            raise ValueError("Key(%s) not in dict: %s" % (k, list(dictv.keys())))
+            raise ValueError("Key(%s) not in dict: %s" % (k, list(dictv.keys())))  # NOQA
 
 
 def validate_param(param):
@@ -260,7 +260,7 @@ def calculate_category_weights(src_weights, path_info, param, logdir):
                     sumv[pb][comp] = 0
                 sumv[pb][comp] += srcw * cat_wcounts[ev][pb][comp]
 
-    print("\sum_{s} source_weight * N_{sc}: %s" % sumv)
+    print("sum_{s} source_weight * N_{sc}: %s" % sumv)
 
     cat_weights, ratios = normalize_category_weights(sumv)
 
@@ -351,7 +351,7 @@ def validate_overall_weights(weights_array, nwins_array):
     nwins_total = np.sum(nwins_array)
     if not np.isclose(wsum, nwins_total):
         raise ValueError("The sum of all weights(%f) does not add "
-                         "up to total number of windows"
+                         "up to total number of windows (%f)"
                          % (wsum, nwins_total))
 
 

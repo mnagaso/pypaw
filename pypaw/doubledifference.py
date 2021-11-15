@@ -164,9 +164,7 @@ def run_with_mpi(func, objects):
     for _i, job in enumerate(jobs, 1):
         results.update(func(job))
         if rank == 0:
-            print("~{}% done.".format(
-                int(_i/len(jobs)*100)),
-                  end="\r")
+            print(f"~{int(_i/len(jobs)*100)}% done.", end="\r")
 
     results = comm.gather(results, root=0)
 
@@ -262,10 +260,13 @@ def calc_adj_sources(path, params):
                 weight = 1.0/n_valid_pairs
                 for adj in adjs:
                     if comp_adj_srcs[sta] is None:
-                        comp_adj_srcs[sta] = multiply_adjoint_source(weight, adj)
+                        comp_adj_srcs[sta] = \
+                            multiply_adjoint_source(weight, adj)
                     else:
-                        comp_adj_srcs[sta] = add_adjoint_sources(comp_adj_srcs[sta],
-                                                                 multiply_adjoint_source(weight, adj))
+                        comp_adj_srcs[sta] = \
+                            add_adjoint_sources(
+                                comp_adj_srcs[sta],
+                                multiply_adjoint_source(weight, adj))
 
             # Update adjoint sources
             for staname, adj_src in comp_adj_srcs.items():
@@ -301,7 +302,7 @@ def calc_adj_sources(path, params):
                                           path=adj_path,
                                           parameters=asdf_src["parameters"])
 
-        with open(path["output_file"].replace(".h5" , ".rejections.json"), "w") as f:
+        with open(path["output_file"].replace(".h5", ".rejections.json"), "w") as f:  # NOQA
             json.dump(zero_misfits, f, indent=2, sort_keys=True)
 
 
@@ -369,7 +370,7 @@ def calc_measures(path, params):
                 meas_j["paired_with"] = i
 
                 if meas_i["misfit"] == 0.0:
-                    zero_misfits[comp].append([i,j])
+                    zero_misfits[comp].append([i, j])
 
                 if comp_measures[i] is None:
                     comp_measures[i] = []
@@ -379,11 +380,11 @@ def calc_measures(path, params):
                     comp_measures[j] = []
                 comp_measures[j].append(meas_j)
 
-            # Calculate and apply the weights
-            n_valid_pairs = len([True
-                                 for m in comp_measures[win]
-                                 if m["misfit"] > 0]) + 1
             for win in comp_measures:
+                # Calculate and apply the weights
+                n_valid_pairs = len([True
+                                     for m in comp_measures[win]
+                                     if m["misfit"] > 0]) + 1
                 for m in comp_measures[win]:
                     m["misfit"] /= n_valid_pairs
 
@@ -392,5 +393,5 @@ def calc_measures(path, params):
     if rank == 0:
         with open(path["output_file"], "w") as f:
             json.dump(measures, f, indent=2, sort_keys=True)
-        with open(path["output_file"].replace(".json" , ".rejections.json"), "w") as f:
+        with open(path["output_file"].replace(".json" , ".rejections.json"), "w") as f:  # NOQA
             json.dump(zero_misfits, f, indent=2, sort_keys=True)

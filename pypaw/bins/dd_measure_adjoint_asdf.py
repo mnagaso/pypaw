@@ -9,10 +9,6 @@
     (http://www.gnu.org/licenses/lgpl-3.0.en.html)
 """
 
-
-
-
-
 import argparse
 from .utils import load_json, load_yaml
 

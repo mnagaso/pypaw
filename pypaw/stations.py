@@ -86,7 +86,7 @@ def extract_adjoint_stations(asdf, stations=None):
     sta_dict = {}
     try:
         adjsrcs = ds.auxiliary_data.AdjointSources
-    except:
+    except AttributeError:
         return {}
 
     if stations is None:
