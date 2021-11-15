@@ -12,7 +12,7 @@ each channel
     GNU Lesser General Public License, version 3 (LGPLv3)
     (http://www.gnu.org/licenses/lgpl-3.0.en.html)
 """
-from __future__ import print_function, division, absolute_import
+
 import os
 from pprint import pprint
 from copy import deepcopy
@@ -38,7 +38,7 @@ def validate_path(path):
 
     if len(path["input_file"]) == 0:
         print("No input information provided in path")
-    for finfo in path["input_file"].itervalues():
+    for finfo in path["input_file"].values():
         asdf_file = finfo["asdf_file"]
         weight_file = finfo["weight_file"]
         if not os.path.exists(asdf_file):
@@ -105,7 +105,7 @@ def check_event_information_in_asdf_files(asdf_files):
 
     check_events_consistent(asdf_events)
 
-    event_base = asdf_events[asdf_events.keys()[0]]
+    event_base = asdf_events[list(asdf_events.keys())[0]]
     origin = event_base[0].preferred_origin()
     return event_base, origin
 
@@ -208,7 +208,7 @@ class PostAdjASDF(object):
         is allowed
         """
         asdf_files = []
-        for file_info in self.path["input_file"].itervalues():
+        for file_info in self.path["input_file"].values():
             asdf_files.append(file_info["asdf_file"])
 
         self.events, self.origin = \
@@ -222,7 +222,7 @@ class PostAdjASDF(object):
         Sum different asdf files
         """
         print("="*30 + "\nSumming asdf files...")
-        for period, _file_info in self.path["input_file"].iteritems():
+        for period, _file_info in self.path["input_file"].items():
             filename = _file_info["asdf_file"]
             ds = ASDFDataSet(filename, mode='r')
             weight_file = _file_info["weight_file"]

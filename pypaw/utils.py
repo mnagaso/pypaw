@@ -82,7 +82,7 @@ def smart_read_json(json_file, mpi_mode=True, comm=None, object_hook=False):
             try:
                 json_obj = read_json_file(json_file, obj_hook=object_hook)
             except Exception as err:
-                print("Error in %s:%s" % (json_file, err))
+                print(("Error in %s:%s" % (json_file, err)))
                 comm.Abort()
         else:
             json_obj = None
@@ -109,7 +109,7 @@ def smart_read_yaml(yaml_file, mpi_mode=True, comm=None):
             try:
                 yaml_dict = read_yaml_file(yaml_file)
             except Exception as err:
-                print("Error in read %s as yaml file: %s" % (yaml_file, err))
+                print(("Error in read %s as yaml file: %s" % (yaml_file, err)))
                 comm.Abort()
         else:
             yaml_dict = None
@@ -192,7 +192,7 @@ def timing(f):
         time1 = time.time()
         ret = f(*args, **kwargs)
         time2 = time.time()
-        print '%s function took %0.3f s' % (f.func_name, (time2-time1))
+        print('%s function took %0.3f s' % (f.__name__, (time2-time1)))
         return ret
     return wrap
 

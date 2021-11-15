@@ -10,7 +10,7 @@ on certain weights provided by the user
     GNU Lesser General Public License, version 3 (LGPLv3)
     (http://www.gnu.org/licenses/lgpl-3.0.en.html)
 """
-from __future__ import print_function, division, absolute_import
+
 import argparse
 from pypaw.sum_adjoint import PostAdjASDF
 

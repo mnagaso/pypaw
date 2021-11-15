@@ -39,7 +39,7 @@ def add_waveform_to_asdf(ds, waveform_filelist, tag, event=None,
         if create_simple_inv:
             for tr in st:
                 sta_tag = "%s_%s" % (tr.stats.network, tr.stats.station)
-                if sta_tag not in sta_dict.keys():
+                if sta_tag not in list(sta_dict.keys()):
                     try:
                         _sac = tr.stats.sac
                     except:
@@ -70,7 +70,7 @@ def add_stationxml_to_asdf(ds, staxml_filelist, event=None,
             start_date = event_time - 300.0
         nstaxml = len(sta_dict)
         count = 0
-        for tag, value in sta_dict.iteritems():
+        for tag, value in sta_dict.items():
             count += 1
             inv = create_simple_inventory(
                 value[0], value[1], latitude=value[2], longitude=value[3],

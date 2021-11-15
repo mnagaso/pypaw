@@ -17,7 +17,7 @@ different events.
     GNU Lesser General Public License, version 3 (LGPLv3)
     (http://www.gnu.org/licenses/lgpl-3.0.en.html)
 """
-from __future__ import print_function, division, absolute_import
+
 
 import argparse
 import matplotlib
@@ -31,7 +31,7 @@ def src_weights(path, param, _verbose=False):
     inputs = path["input"]
     output_file = path["output_file"]
 
-    eventlist = inputs.keys()
+    eventlist = list(inputs.keys())
     eventlist.sort()
     nevents = len(eventlist)
     print("Number of sources: %d" % nevents)

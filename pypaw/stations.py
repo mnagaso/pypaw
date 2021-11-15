@@ -16,7 +16,7 @@ from pytomo3d.station import extract_staxml_info
 
 def extract_station_info_from_asdf(asdf, verbose=False):
     """ extract the sensor type from stationxml in asdf file """
-    if isinstance(asdf, str) or isinstance(asdf, unicode):
+    if isinstance(asdf, str) or isinstance(asdf, str):
         ds = pyasdf.ASDFDataSet(asdf, mode='r')
     elif isinstance(asdf, pyasdf.ASDFDataSet):
         ds = asdf

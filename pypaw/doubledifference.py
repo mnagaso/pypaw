@@ -216,7 +216,7 @@ def calc_adj_sources(path, params):
     adj_srcs = {}
     inventories = {}
     zero_misfits = {}
-    for comp, comp_pairs in pairs.iteritems():
+    for comp, comp_pairs in pairs.items():
         if rank != 0:
             splitted_pairs = list(split(comp_pairs, size))
             comp_rank_pairs = splitted_pairs[rank]
@@ -254,7 +254,7 @@ def calc_adj_sources(path, params):
                 comp_meas[j].append(adj_j)
             del results
 
-            for meas, adjs in comp_meas.iteritems():
+            for meas, adjs in comp_meas.items():
                 sta, _, _ = deconstruct_winname(meas)
                 n_valid_pairs = len([True
                                      for a in adjs
@@ -268,7 +268,7 @@ def calc_adj_sources(path, params):
                                                                  multiply_adjoint_source(weight, adj))
 
             # Update adjoint sources
-            for staname, adj_src in comp_adj_srcs.iteritems():
+            for staname, adj_src in comp_adj_srcs.items():
                 if staname in adj_srcs:
                     adj_srcs[staname].append(adj_src)
                 else:
@@ -336,7 +336,7 @@ def calc_measures(path, params):
 
     measures = {}
     zero_misfits = {}
-    for comp, comp_pairs in pairs.iteritems():
+    for comp, comp_pairs in pairs.items():
         splitted_pairs = list(split(comp_pairs, size))
         comp_rank_pairs = splitted_pairs[rank]
 

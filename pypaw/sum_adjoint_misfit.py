@@ -1,18 +1,18 @@
-from __future__ import print_function, division
+
 import os
 import argparse
 from pprint import pprint
 
-from utils import read_txt_into_list, dump_json, load_json
+from .utils import read_txt_into_list, dump_json, load_json
 
 
 def sum_adjoint_misfits(filelist):
     misfits = {}
     for _file in filelist:
         _misfit = load_json(_file)
-        for period, period_info in _misfit.iteritems():
+        for period, period_info in _misfit.items():
             misfits.setdefault(period, {})
-            for comp, comp_info in period_info.iteritems():
+            for comp, comp_info in period_info.items():
                 if comp not in misfits[period]:
                     misfits[period][comp] = 0
                 misfits[period][comp] += comp_info["misfit"]

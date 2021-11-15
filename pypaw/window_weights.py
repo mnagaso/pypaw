@@ -22,7 +22,7 @@ are summed together.
     GNU Lesser General Public License, version 3 (LGPLv3)
     (http://www.gnu.org/licenses/lgpl-3.0.en.html)
 """
-from __future__ import print_function, division, absolute_import
+
 
 import os
 from collections import defaultdict
@@ -83,7 +83,7 @@ def validate_path(path):
     err = 0
     logger.info("Validate input path")
     input_info = path["input"]
-    for period, period_info in input_info.iteritems():
+    for period, period_info in input_info.items():
         asdf_file = period_info["asdf_file"]
         window_file = period_info["window_file"]
         station_file = period_info["station_file"]
@@ -139,7 +139,7 @@ def extract_source_location(input_info):
     """
     logger_block("Extracting source location information")
     asdf_events = {}
-    for period, period_info in input_info.iteritems():
+    for period, period_info in input_info.items():
         asdf_fn = period_info["asdf_file"]
         logger.info("Period band: %s -- asdf file: %s"
                     % (period, asdf_fn))
@@ -150,7 +150,7 @@ def extract_source_location(input_info):
     # check event information all the same across period bands
     check_events_consistent(asdf_events)
 
-    event_base = asdf_events[asdf_events.keys()[0]]
+    event_base = asdf_events[list(asdf_events.keys())[0]]
     origin = event_base.preferred_origin()
     src_info = {
         "latitude": origin.latitude, "longitude": origin.longitude,
@@ -169,8 +169,8 @@ def analyze_category_weights(cat_weights, logfile):
     log = {"category_weights": cat_weights}
     maxw = 0
     minw = 10**9
-    for _p, _pw in cat_weights.iteritems():
-        for _comp, _compw in _pw.iteritems():
+    for _p, _pw in cat_weights.items():
+        for _comp, _compw in _pw.items():
             if _compw > maxw:
                 maxw = _compw
             if _compw < minw:
@@ -198,8 +198,8 @@ def analyze_overall_weights(weights, rec_wcounts, log_prefix):
     nwins_array = []
     weights_array = []
     # validate the sum of all weights is 1
-    for _p, _pw in weights.iteritems():
-        for _chan, _chanw in _pw.iteritems():
+    for _p, _pw in weights.items():
+        for _chan, _chanw in _pw.items():
             comp = _chan.split(".")[-1]
             nwins_array.append(rec_wcounts[_p][comp][_chan])
             weights_array.append(_chanw["weight"])
@@ -260,11 +260,11 @@ class WindowWeight(object):
 
     def analyze_receiver_weights(self, logfile):
         log = {}
-        for _p, _pw in self.weights.iteritems():
+        for _p, _pw in self.weights.items():
             log[_p] = {}
             maxw = defaultdict(lambda: 0)
             minw = defaultdict(lambda: 10**9)
-            for _chan, _chanw in _pw.iteritems():
+            for _chan, _chanw in _pw.items():
                 comp = _chan.split(".")[-1]
                 if _chanw["weight"] > maxw[comp]:
                     maxw[comp] = _chanw["weight"]
@@ -298,7 +298,7 @@ class WindowWeight(object):
 
     def dump_weights(self):
         """ dump weights to files """
-        for period, period_info in self.weights.iteritems():
+        for period, period_info in self.weights.items():
             outputfn = self.path['input'][period]["output_file"]
             dump_json(period_info, outputfn)
 
@@ -317,7 +317,7 @@ class WindowWeight(object):
         nperiods = len(input_info)
         period_idx = 0
         # determine receiver weightings for each asdf file
-        for period, period_info in input_info.iteritems():
+        for period, period_info in input_info.items():
             period_idx += 1
             logger.info("-" * 15 + "[%d/%d]Period band: %s"
                         % (period_idx, nperiods, period) + "-" * 15)

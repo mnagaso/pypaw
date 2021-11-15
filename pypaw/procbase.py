@@ -99,7 +99,7 @@ class ProcASDFBase(object):
         """
         def _print_subs(_dict, title):
             print("-"*10 + title + "-"*10)
-            sorted_dict = sorted(((v, k) for v, k in _dict.iteritems()))
+            sorted_dict = sorted(((v, k) for v, k in _dict.items()))
             for key, value in sorted_dict:
                 print("%s:  %s" % (key, value))
 
@@ -175,7 +175,7 @@ class ProcASDFBase(object):
             raise ValueError("Input _dict must be type of dict")
         error_code = 0
         for _key in necessary_keys:
-            if _key not in _dict.keys():
+            if _key not in list(_dict.keys()):
                 print("%s must be specified in parameter file" % _key)
                 error_code = 1
         if error_code:

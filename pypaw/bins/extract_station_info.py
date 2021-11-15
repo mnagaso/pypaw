@@ -3,7 +3,7 @@
 # This script extract channel instrument information for one asdf file
 # and store in json file. This will save up time for re-parsing the
 # stationxml file
-from __future__ import print_function, division, absolute_import
+
 import argparse
 from .utils import load_json, dump_json
 from pypaw.stations import extract_station_info_from_asdf
