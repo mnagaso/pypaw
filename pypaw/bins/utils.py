@@ -27,12 +27,12 @@ def dump_json(content, filename):
 
 def load_yaml(filename):
     with open(filename, 'r') as fh:
-        return yaml.load(fh)
+        return yaml.safe_load(fh)
 
 
 def dump_yaml(content, filename):
     with open(filename, 'w') as fh:
-        yaml.dump(content, fh, indent=2)
+        yaml.safe_dump(content, fh, indent=2)
 
 
 def reset_matplotlib():
