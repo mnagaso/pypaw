@@ -213,7 +213,7 @@ def analyze_overall_weights(weights, rec_wcounts, log_prefix):
     plot_histogram(figname, nwins_array)
 
     nreceivers = len(weights_array)
-    nwindows = np.sum(nwins_array)
+    nwindows = int(np.sum(nwins_array))
     if len(weights_array) > 0:
         maxw = max(weights_array)
         minw = min(weights_array)
@@ -230,7 +230,7 @@ def analyze_overall_weights(weights, rec_wcounts, log_prefix):
 
     logfile = log_prefix + ".weights.summary.json"
     content = {"max_weights": maxw, "min_weights": minw,
-               "total_nwindows": np.sum(nwins_array),
+               "total_nwindows": int(np.sum(nwins_array)),
                "windows": nwindows, "receivers": nreceivers}
     logger.info("Overall log file: %s" % logfile)
     dump_json(content, logfile)
