@@ -20,6 +20,7 @@ consoles = [
     'pypaw-process_asdf=pypaw.bins.process_asdf:main',
     'pypaw-window_selection_asdf=pypaw.bins.window_selection_asdf:main',  # NOQA
     'pypaw-adjoint_asdf=pypaw.bins.adjoint_asdf:main',
+    'pypaw-attenuation_adjoint_asdf=pypaw.bins.adjoint_att:main',
     'pypaw-measure_adjoint_asdf=pypaw.bins.measure_adjoint_asdf:main',
     'pypaw-extract_station_info=pypaw.bins.extract_station_info:main',
     'pypaw-filter_windows=pypaw.bins.filter_windows:main',

@@ -20,7 +20,8 @@ from .utils import smart_check_path, smart_remove_file, smart_mkdir
 
 class ProcASDFBase(object):
 
-    def __init__(self, path, param, verbose=False, debug=False):
+    def __init__(self, path, param, verbose=False, debug=False,
+                 **options):
 
         self.comm = None
         self.rank = None
@@ -29,6 +30,7 @@ class ProcASDFBase(object):
         self.param = param
         self._verbose = verbose
         self._debug = debug
+        self.options = options
 
     def _parse_yaml(self, content):
         """
