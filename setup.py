@@ -40,7 +40,7 @@ consoles = [
     'pypaw-dd_adjoint_asdf=pypaw.bins.dd_adjoint_asdf:main',
     'pypaw-dd_merge_adjoints=pypaw.bins.dd_merge_adjoints:main',
     'pypaw-dd_measure_adjoint_asdf=pypaw.bins.dd_measure_adjoint_asdf:main',
-    'pypaw-dd_filter_rejected_pairs=pypaw.bins.dd_filter_rejected_pairs:main'
+    'pypaw-dd_filter_rejected_pairs=pypaw.bins.dd_filter_rejected_pairs:main',
     'pypaw-plot_event_windows=pypaw.bins.plot_event_windows:main'
 ]
 
