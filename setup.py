@@ -53,7 +53,7 @@ setup(
     author="Wenjie Lei",
     author_email="lei@princeton.edu",
     url="https://github.com/wjlei1990/pypaw",
-    packages=["pypaw"],
+    packages=["pypaw", "pypaw.bins"],
     tests_require=['pytest'],
     cmdclass={'test': PyTest},
     zip_safe=False,
