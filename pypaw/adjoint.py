@@ -65,6 +65,8 @@ def load_adjoint_config(config, adjsrc_type):
         ConfigClass = pyadjoint.ConfigCrossCorrelation
     elif adjsrc_type == "waveform_misfit":
         ConfigClass = pyadjoint.ConfigWaveForm
+    elif adjsrc_type == "envelope_misfit":
+        ConfigClass = pyadjoint.ConfigEnvelope
     else:
         raise ValueError("Unrecoginsed adj_src_type(%s)" % adjsrc_type)
 
