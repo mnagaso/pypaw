@@ -1,11 +1,14 @@
 wheel
 mpi4py
+obspy
+pyflex @ git+https://github.com/rdno/pyflex.git@surface_arrivals_py3
+pyadjoint @ git+https://github.com/rdno/pyadjoint.git@py3
+pytomo3d @ git+https://github.com/rdno/pytomo3d@py3
+pyasdf @ git+https://github.com/rdno/pyasdf@py3
+spaceweight @ git+https://github.com/rdno/spaceweight@compat
+tqdm
+yaml
+
 #h5py with parallel option need to be installed from source
 # by the command
 # git clone https://github.com/h5py/h5py.git && cd h5py && HDF5_MPI=ON CC=mpicc pip install . && cd .. && rm -rf h5py
-obspy
-pytomo3d @ git+https://github.com/rdno/pytomo3d@py3
-#pyasdf @ git+https://github.com/wjlei1990/pyasdf # outdated for some functions
-pyasdf
-spaceweight @ git+https://github.com/wjlei1990/spaceweight.git
-tqdm
