@@ -30,37 +30,7 @@ Pypaw has dependancies on the following packages:
   conda uninstall hdf5 h5py openmpi mpi4py
   ```
 
-#### 4. install obspy using conda
-
-  ```
-  conda install -c obspy obspy
-  ```
-
-#### 5. Install pytomo3d.
-  Pytomo3d also has dependancies(including obspy, pyflex and pyadjoint). Please see the *INSTALL.md* in pytomo3d to check the dependacies.
-
-  Please carefully read the installtion documentation [here](https://github.com/wjlei1990/pytomo3d/blob/master/INSTALL.md). There are also some softwared depandancy to install pytomo3d, which means you need to additionally install some other python pakcages. For some packages(like pyadjoint and pyflex), we have our own modifications.
-  ```
-  git clone https://github.com/wjlei1990/pytomo3d
-  cd pytomo3d
-  pip install -v -e .
-  cd ..
-  ```
-  
-  To make sure you install this package correctly, you can try:
-  ```
-  cd pytomo3d
-  py.test
-  ```
-  and see if all tests pass.
-
-
-#### 6. install mpi4py
-  ```
-  pip install mpi4py==1.3.1
-  ```
-
-#### 7. load(or install) hdf5-parallel
+#### 4. load(or install) hdf5-parallel
 
   For large computing clusters, hdf5-parallel is usually pre-installed(or work as a module). So first you want to check if this library is pre-installed on your machine. If so, load the module and go to the next step. If not, you need to install hdf5-parallel yourself.  
   For some cases, even the hdf5-parallel is pre-installed on your machine, it might not work since it is not compiled with correct flags(shared library or so). If the system library doesn't work, install it yourself. For example, there is a module one tiger called `hdf5/intel-13.0/openmpi-1.8.8`. However, I could not use that since h5py fails on it. So I download hdf5 and compiled it myself.
@@ -85,34 +55,18 @@ Pypaw has dependancies on the following packages:
   http://alexis.praga.free.fr/computing/2014/04/02/rant-h5py.html
   ```
 
-#### 10. install h5py
-  Down load the code using:
-  ```
-  git clone https://github.com/h5py/h5py
-  ```
-  and then install the code.
-  ```
-  cd h5py
-  export CC=mpicc
-  python setup.py configure --mpi
-  python setup.py configure --hdf5=/path/to/hdf5/install/dir
-  python setup.py build
-  python setup.py install
-  ```
-  See detailed instructions at [here](http://docs.h5py.org/en/latest/build.html)
 
-#### 11. install PyASDF
-  ```
-  git clone https://github.com/wjlei1990/pyasdf
-  cd pyasdf
-  pip install -v -e .
-  cd ..
-  ```
+#### 5. prepare conda environment
 
-#### 12. install pypaw
-  ```
-  git clone https://github.com/wjlei1990/pypaw
-  cd pypaw
-  pip install -v -e .
-  cd ..
-  ```
+Modify the line below in the `install_script.sh` to the path of your hdf5-parallel library
+```
+export HDF5_DIR=/path/to/hdf5/install/dir
+```
+
+then run the following command:
+
+```
+source ./install_script.sh
+```
+
+#### 6. then your conda environment should be ready to use as pypaw

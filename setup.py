@@ -44,6 +44,8 @@ consoles = [
     'pypaw-plot_event_windows=pypaw.bins.plot_event_windows:main'
 ]
 
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
 
 setup(
     name="pypaw",
@@ -75,10 +77,11 @@ setup(
     keywords=[
         "seismology", "tomography", "adjoint", "signal", "inversion", "window"
     ],
-    install_requires=[
-        "numpy", "obspy>=1.0.0", "flake8>=3.0", "pytest", "nose",
-        "future>=0.14.1", "pytomo3d", "pyasdf", "pyyaml", "spaceweight"
-    ],
+    #install_requires=[
+    #    "numpy", "obspy>=1.0.0", "flake8>=3.0", "pytest", "nose",
+    #    "future>=0.14.1", "pytomo3d", "pyasdf", "pyyaml"
+    #],
+    install_requires=requirements,
     entry_points={
         'console_scripts': consoles
     },

@@ -1,0 +1,23 @@
+name: pypaw
+channels:
+    - conda-forge
+dependencies:
+    - numpy
+    - obspy
+    - cartopy
+    - pyyaml
+    - pip
+    - flake8
+    - nose
+    - pytest
+    - geographiclib
+    - pyyaml
+    - tqdm
+    - pip:
+      - wheel
+      - git+https://github.com/rdno/pyflex.git@surface_arrivals_py3
+      - git+https://github.com/rdno/pyadjoint.git@py3
+      - git+https://github.com/rdno/pytomo3d@py3
+      - git+https://github.com/rdno/pyasdf@py3
+      - git+https://github.com/rdno/spaceweight@compat
+
