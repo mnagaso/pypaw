@@ -5,7 +5,11 @@
 # 4. HDF5 (parallel) installed
 # (please check the INSTALL.md for more details)
 
-export HDF5_DIR="/usr/lib/x86_64-linux-gnu/hdf5/openmpi/"
+# check cpu architecture
+arch_type=$(uname -m)
+
+# export for some general installation, but still need to check the path by yourself
+export HDF5_DIR="/usr/lib/${arch_type}-linux-gnu/hdf5/openmpi/"
 
 conda env create -f environment.yml
 conda activate pypaw
