@@ -3,7 +3,6 @@ channels:
     - conda-forge
 dependencies:
     - numpy
-    - obspy
     - cartopy
     - pyyaml
     - pip
@@ -15,6 +14,7 @@ dependencies:
     - tqdm
     - pip:
       - wheel
+      - obspy
       - git+https://github.com/rdno/pyflex.git@surface_arrivals_py3
       - git+https://github.com/rdno/pyadjoint.git@py3
       - git+https://github.com/rdno/pytomo3d@py3
