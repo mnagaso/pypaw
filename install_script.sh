@@ -20,8 +20,8 @@ export PATH="$CONDA_bin:$PATH"
 # make sure that PYTHONPATH is empty (module load command may add some path)
 export PYTHONPATH=""
 
-#conda env create -f environment.yml
-conda env create -f environment_frontera.yml
+conda env create -f environment.yml
+#conda env create -f environment_frontera.yml
 conda activate pypaw
 
 CC=mpicc pip install --no-binary=mpi4py mpi4py #==3.1.2
