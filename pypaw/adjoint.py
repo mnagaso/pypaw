@@ -23,7 +23,7 @@ from .utils import smart_read_json
 
 def check_process_config_keywords(config):
     """ check process_config contains all necessary keywords """
-    default_keywords = inspect.getargspec(process_adjoint).args
+    default_keywords = inspect.getfullargspec(process_adjoint).args
     deletes = ["adjsrcs", "interp_starttime", "weight_dict", "inventory",
                "event"]
     for d in deletes:
@@ -40,7 +40,7 @@ def check_adjoint_config_keywords(config, ConfigClass):
     check adjoint_config contains all necessary keywords when
     loading the keyworkds
     """
-    default_keywords = inspect.getargspec(ConfigClass.__init__).args
+    default_keywords = inspect.getfullargspec(ConfigClass.__init__).args
     deletes = ["self"]
     for d in deletes:
         default_keywords.remove(d)

@@ -28,7 +28,7 @@ def check_param_keywords(config):
                "signal_start_index", "signal_end_index",
                "window_weight_fct"]
 
-    default_keywords = inspect.getargspec(pyflex.Config.__init__).args
+    default_keywords = inspect.getfullargspec(pyflex.Config.__init__).args
     for d in deletes:
         default_keywords.remove(d)
 
